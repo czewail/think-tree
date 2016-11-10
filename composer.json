@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Ppeerit\\Tree\\": "lib/"
+            "Ppeerit\\Tree\\": "src/"
         }
     },
     "autoload-dev": {

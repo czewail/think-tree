@@ -4,6 +4,7 @@ namespace Ppeerit\Tree;
 
 use Ppeerit\Tree\Exceptions\InvalidParentException;
 use Ppeerit\Tree\Library\Node;
+use think\Config;
 
 class Tree
 {
