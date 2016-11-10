@@ -1,9 +1,9 @@
 {
-    "name": "ppeerit/tree",
+    "name": "ppeerit/think-tree",
     "type": "library",
     "description": "Library for tp5 tree",
     "keywords": ["tree"],
-    "homepage": "https://github.com/ppeerit/Tree",
+    "homepage": "https://github.com/ppeerit/think-tree",
     "license": "Apache-2.0",
     "authors": [
         {
