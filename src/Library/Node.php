@@ -54,6 +54,12 @@ class Node
     ];
 
     /**
+     * 修饰符
+     * @var array
+     */
+    protected $icon = ['│', '├', '└'];
+
+    /**
      * 节点属性索引数组
      * @var array
      */
@@ -139,7 +145,7 @@ class Node
     }
 
     /**
-     * 格式化树
+     * 格式化树 - 用于选择框或列表
      * @param  array   $list  [description]
      * @param  integer $level [description]
      * @return [type]         [description]
@@ -150,12 +156,9 @@ class Node
         $title = $this->config['title'];
 
         if (is_object($data)) {
-            $tmp_str = str_repeat("&nbsp;", $level * 2);
-            $tmp_str .= "└";
+            $tmp_str                        = str_repeat("&nbsp;", $level * 2);
             $this->properties['level']      = $level;
-            $this->properties['title_show'] = $level == 0 ? $data->properties[$title] . "&nbsp;" : $tmp_str . $data->properties[$title] . "&nbsp;";
-            //$data->level = $level;
-            //$data->title_show = $level == 0 ? $data->properties[$title] . "&nbsp;" : $tmp_str . $data->properties[$title] . "&nbsp;";
+            $this->properties['title_show'] = $data->properties[$title];
             if (!$data->children) {
                 array_push($this->formatTree, $data->toArray());
             } else {
@@ -163,21 +166,24 @@ class Node
                 $this->toFormatTree($data->children, $level + 1); //进行下一层递归
             }
         } else {
+            $total  = count($data);
+            $number = 1;
             foreach ($data as $key => $val) {
                 $tmp_str = str_repeat("&nbsp;", $level * 2);
-                $tmp_str .= "└";
+                if ($total == $number) {
+                    $tmp_str .= $this->icon[2];
+                } else {
+                    $tmp_str .= $this->icon[1];
+                }
                 $val->properties['level']      = $level;
                 $val->properties['title_show'] = $level == 0 ? $val->properties[$title] . "&nbsp;" : $tmp_str . $val->properties[$title] . "&nbsp;";
-                // $val->level = $level;
-                // $val->title_show = $level == 0 ? $val->properties[$title] . "&nbsp;" : $tmp_str . $val->properties[$title] . "&nbsp;";
-
                 if (!$val->children) {
                     array_push($this->formatTree, $val->toArray());
                 } else {
                     array_push($this->formatTree, $val->toArray());
                     $this->toFormatTree($val->children, $level + 1); //进行下一层递归
                 }
-
+                $number++;
             }
         }
         return;
