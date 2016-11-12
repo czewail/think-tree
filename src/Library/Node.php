@@ -156,7 +156,7 @@ class Node
         $title = $this->config['title'];
 
         if (is_object($data)) {
-            $tmp_str                        = str_repeat("&nbsp;", $level * 2);
+            $tmp_str                        = str_repeat("&nbsp;", $level * 4);
             $this->properties['level']      = $level;
             $this->properties['title_show'] = $data->properties[$title];
             if (!$data->children) {
@@ -169,14 +169,14 @@ class Node
             $total  = count($data);
             $number = 1;
             foreach ($data as $key => $val) {
-                $tmp_str = str_repeat("&nbsp;", $level * 2);
+                $tmp_str = str_repeat("&nbsp;", $level * 4);
                 if ($total == $number) {
                     $tmp_str .= $this->icon[2];
                 } else {
                     $tmp_str .= $this->icon[1];
                 }
                 $val->properties['level']      = $level;
-                $val->properties['title_show'] = $level == 0 ? $val->properties[$title] . "&nbsp;" : $tmp_str . $val->properties[$title] . "&nbsp;";
+                $val->properties['title_show'] = $level == 0 ? $val->properties[$title] . "&nbsp;" : $tmp_str . "&nbsp;&nbsp;" . $val->properties[$title] . "&nbsp;";
                 if (!$val->children) {
                     array_push($this->formatTree, $val->toArray());
                 } else {
